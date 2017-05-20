@@ -1,0 +1,155 @@
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="default" extends="struts-default">
+    
+    	<interceptors>
+			<interceptor name="SessionInterceptor"
+				class="net.atos.awl.interceptor.SessionInterceptor" />
+			<interceptor-stack name="sessionExpirayStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="SessionInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+  		<global-results>
+           		<result name="sessionexpired" >/login.jsp</result>
+ 		</global-results> 
+
+        <action name="Login" method="executeLogin" class="net.atos.awl.tes.Login" >
+            <result name="input">/login.jsp</result>
+            <result name="success">/enrol.jsp</result>
+			<result name="reviewer">/reviewEnrol.jsp</result>
+			<result name="manager">/managerEnrol.jsp</result>
+			<result name="questionStart">/questionstart.jsp</result>
+			<result name="questionLast">/questionsLast.jsp</result>
+			<result name="desquestions">/desQuestion.jsp</result>
+        </action>
+        <action name="LoginHome" method="logout" class="net.atos.awl.tes.Login"> 
+            <result name="success">/login.jsp</result>  
+        </action>
+		<action name="Home" method="home" class="net.atos.awl.tes.Login"> 
+            <result name="success">/enrol.jsp</result>  
+        </action>		
+		<action name="showResult" method="showResult" class="net.atos.awl.tes.Login"> 
+            <result name="success">/showResult.jsp</result>          
+        </action>
+        
+		<action name="resultBack" method="resultBack" class="net.atos.awl.tes.Login"> 
+            <result name="success">/enrol.jsp</result>          
+			<result name="input" type="redirect-action">resultBack</result>  
+        </action>
+        <action name="sessionClose" method="sessionClose" class="net.atos.awl.tes.Login">  
+		  <result name="success">/login.jsp</result>                              
+        </action>
+        
+        <action name="NextSection" method="getDiscriptiveQuestions" class="net.atos.awl.tes.DesQuestionAction"> 
+            <result name="success">/desQuestion.jsp</result>            
+        </action>
+		<action name="desPrevious" method="previousQuestion" class="net.atos.awl.tes.DesQuestionAction"> 
+            <result name="success">/desQuestion.jsp</result>            
+        </action>
+		<action name="desNext" method="nextQuestions" class="net.atos.awl.tes.DesQuestionAction"> 
+            <result name="success">/desQuestion.jsp</result>            
+        </action>
+        
+		<action name="totalResultCert" method="resultCalculation" class="net.atos.awl.tes.DesQuestionAction"> 
+            <result name="success">/finalResult.jsp</result>            
+        </action>
+		
+        <action name="reset" method="reset" class="net.atos.awl.tes.CertificationAction">
+            <result name="success">/enrol.jsp</result>
+        </action>
+		
+		<action name="resetReview" method="resetReview" class="net.atos.awl.tes.ReviewAction">
+            <result name="success">/reviewEnrol.jsp</result>
+        </action>
+        
+        <action name="resetManager" method="resetManager" class="net.atos.awl.tes.ManagerAction">
+            <result name="success">/managerEnrol.jsp</result>
+        </action>
+		
+		<action name="enrolCert" method="startCertification" class="net.atos.awl.tes.CertificationAction">
+            <result name="success">/questionstart.jsp</result>
+			<result name="input">/enrol.jsp</result>
+        </action>
+		
+        <action name="enrolCertPrevious" method="previousList" class="net.atos.awl.tes.CertificationAction">
+            <result name="success">/questionstart.jsp</result>   
+        </action>           
+		<action name="selectLevels" method="selectLevels" class="net.atos.awl.tes.CertificationAction">
+            <result name="success">/enrol.jsp</result>
+        </action>
+		
+		<action name="reviewStart" method="reviewStart" class="net.atos.awl.tes.ReviewAction">
+            <result name="success">/reviewList.jsp</result>
+			<result name="input">/reviewEnrol.jsp</result>
+        </action>
+
+        <action name="manageReport" method="manageReport" class="net.atos.awl.tes.ManagerAction">
+			<result name="input">/managerEnrol.jsp</result>
+			<result name="success">/managerEnrol.jsp</result>
+        </action>
+        
+		<action name="selectReviewLevels" method="selectReviewLevels" class="net.atos.awl.tes.ReviewAction">
+			<result name="input">/reviewEnrol.jsp</result>
+        </action>
+        
+        <action name="selectManageLevels" method="selectManageLevels" class="net.atos.awl.tes.ManagerAction">
+			<result name="input">/managerEnrol.jsp</result>
+        </action>
+        
+		 <action name="setUpForCheck" method="setUpForCheck" class="net.atos.awl.tes.ReviewAction">
+            <result name="success">/questionsReviewUpdate.jsp</result>
+			<result name="input" type="redirect-action">reviewQuestions</result>
+        </action>
+		
+		 <action name="reviewQuestions" method="reviewQuestions" class="net.atos.awl.tes.ResultAction">
+           <result name="success">/reviewList.jsp</result>
+		   <result name="input" type="redirect-action">reviewQuestions</result>
+        </action>
+		
+		<action name="reviewListBack" method="reviewListBack" class="net.atos.awl.tes.ResultAction">
+			<result name="success">/reviewList.jsp</result>
+			<result name="input" type="redirect-action">reviewListBack</result>
+        </action>
+		 <action name="reviewBack" method="reviewBack" class="net.atos.awl.tes.ReviewAction">
+            <result name="success">/reviewEnrol.jsp</result>
+        </action>
+		
+		<action name="resultCert" class="net.atos.awl.tes.CertificationAction">
+            <result name="success">
+            	/certresult.jsp 
+			</result>
+        </action>
+		<action name="enrolCertNext" method="nextList" class="net.atos.awl.tes.CertificationAction">
+			 <result name="input">/questionstart.jsp</result>
+			<result name="success">/questionstart.jsp</result>
+			<result name="success1">/questionsLast.jsp</result> 
+			
+		</action>
+        <action name="getAllTechnologies" method="getAllTechnologies" class="net.atos.awl.tes.TechnologyAction">
+            <result name="success">/technology.jsp</result>
+           
+        </action>
+        <action name="setUpForInsertOrUpdate" method="setUpForInsertOrUpdate" class="net.atos.awl.tes.TechnologyAction">
+            <result name="success">/technologyForm.jsp</result>
+        </action>
+        <action name="insertOrUpdate" method="insertOrUpdate" class="net.atos.awl.tes.TechnologyAction">
+           <result name="success" type="redirect-action">getAllTechnologies</result>
+           <result name="input">/technologyForm.jsp</result>
+        </action>
+           <action name="delete" method="deleteTechnology" class="net.atos.awl.tes.TechnologyAction">
+           <result name="success" type="redirect-action">getAllTechnologies</result>
+        </action>
+        
+        <action name="loadProfile" method="loadProfile" class="net.atos.awl.tes.ProfileAction">
+            <result name="success">/profile.jsp</result>
+        </action>
+        <action name="enrol" method="enrol" class="net.atos.awl.tes.TechnologyAction">
+            <result name="success">/enrol.jsp</result>
+        </action>
+        <action name="retake" method="retake" class="net.atos.awl.tes.TechnologyAction">
+           <result name="success">/enrol.jsp</result>
+        </action>
+    </package>
+</struts>
